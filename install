@@ -83,11 +83,29 @@ ln -s "$__dirname/dircolors"       ~/.config/dircolors
 
 
 ##################
+# Install python #
+##################
+
+if [[ "$(which python)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
+    echo_info "Installing python"
+
+    if [[ "$(uname -a)" =~ .*Ubuntu.* ]]; then
+        sudo apt install python python3 python-pip python-pip3
+    else
+        echo_error "Can't install python for: $(uname -a)"
+    fi
+
+    pip install neovim
+    pip3 install neovim
+fi
+
+
+##################
 # Install nodejs #
 ##################
 
 if [[ "$(which node)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
-    echo_info "Install nodejs"
+    echo_info "Installing nodejs"
 
     if [[ "$(uname -a)" =~ .*Ubuntu.* ]]; then
         # Using Ubuntu
