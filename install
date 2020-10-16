@@ -55,6 +55,7 @@ function remove_file() {
 ###############################
 
 mkdir -p ~/bin
+mkdir -p ~/.cache
 mkdir -p ~/.config
 mkdir -p ~/.local
 
@@ -96,6 +97,7 @@ if [[ "$(which node)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
         echo_error "Can't install nodejs for: $(uname -a)"
     fi
 
+    npm set prefix ~/.cache/npm
     npm install -g yarn
     npm install -g neovim
 fi
