@@ -3,15 +3,24 @@
 
 __dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# Colors
+bold='\x1b[1m'
+reset='\x1b[0m'
+
 
 ########
 # Bash #
 ########
 
-touch ~/.bashrc
+
+if [ -f ~/.bashrc ]; then
+    mv ~/.bashrc ~/.bashrc.old
+    echo "${bold}==> Moving existing .bashrc to .bashrc.old $reset"
+fi
+
 rm -f ~/.bash_aliases
 
-echo "\n. $__dirname/bash/init.sh" >> ~/.bashrc
+ln -s "$__dirname/bash/init.sh"    ~/.bashrc
 ln -s "$__dirname/bash/aliases.sh" ~/.bash_aliases
 
-ln -s "$__dirname/dircolors" ~/.config/dircolors
+ln -s "$__dirname/dircolors"       ~/.config/dircolors
