@@ -85,7 +85,7 @@ ln -s "$__dirname/dircolors"       ~/.config/dircolors
 # Install nodejs #
 ##################
 
-if [[ "$(which node)" =~ ".*not found.*" ]]; then
+if [[ "$(which node)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
     echo_info "Install nodejs"
 
     if [[ "$(uname -a)" =~ ".*Ubuntu.*" ]]; then
