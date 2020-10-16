@@ -91,7 +91,7 @@ if [[ "$(which node)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
 
     if [[ "$(uname -a)" =~ .*Ubuntu.* ]]; then
         # Using Ubuntu
-        curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+        curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
         sudo apt install -y nodejs
     else
         echo_error "Can't install nodejs for: $(uname -a)"
