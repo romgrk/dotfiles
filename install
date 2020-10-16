@@ -7,18 +7,38 @@ __dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 bold='\x1b[1m'
 reset='\x1b[0m'
 
+function is_normal_file () {
+    if [ -f "$1" ] && [ ! -L "$1" ]; then
+        return 0
+    fi
+    return 1
+}
+
+function remove_file() {
+    if is_normal_file "$1"; then
+        rm -f "$1"
+        return 0
+    fi
+    if [ -f "$1" ]; then
+        unlink "$1"
+        return 0
+    fi
+    return 1
+}
+
 
 ########
 # Bash #
 ########
 
 
-if [ -f ~/.bashrc ]; then
+if is_normal_file ~/.bashrc ; then
     mv ~/.bashrc ~/.bashrc.old
-    echo "${bold}==> Moving existing .bashrc to .bashrc.old $reset"
+    echo -e "${bold}==> Moving existing .bashrc to .bashrc.old $reset"
 fi
 
-rm -f ~/.bash_aliases
+remove_file ~/.bash_aliases
+remove_file ~/.config/dircolors
 
 ln -s "$__dirname/bash/init.sh"    ~/.bashrc
 ln -s "$__dirname/bash/aliases.sh" ~/.bash_aliases
