@@ -8,7 +8,7 @@ case $- in
       *) return;;
 esac
 
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/.cache/npm/bin:$PATH
 
 
 # don't put duplicate lines or lines starting with space in the history.
