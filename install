@@ -4,8 +4,16 @@
 __dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Colors
+blue='\x1b[94m'
 bold='\x1b[1m'
 reset='\x1b[0m'
+
+function is_symlink () {
+    if [ -L "$1" ]; then
+        return 0
+    fi
+    return 1
+}
 
 function is_normal_file () {
     if [ -f "$1" ] && [ ! -L "$1" ]; then
@@ -27,6 +35,15 @@ function remove_file() {
 }
 
 
+###############################
+# Create required directories #
+###############################
+
+mkdir -p ~/bin
+mkdir -p ~/.config
+mkdir -p ~/.local
+
+
 ########
 # Bash #
 ########
@@ -36,6 +53,9 @@ if is_normal_file ~/.bashrc ; then
     mv ~/.bashrc ~/.bashrc.old
     echo -e "${bold}==> Moving existing .bashrc to .bashrc.old $reset"
 fi
+if is_symlink ~/.bashrc ; then
+    unlink ~/.bashrc
+fi
 
 remove_file ~/.bash_aliases
 remove_file ~/.config/dircolors
@@ -44,3 +64,16 @@ ln -s "$__dirname/bash/init.sh"    ~/.bashrc
 ln -s "$__dirname/bash/aliases.sh" ~/.bash_aliases
 
 ln -s "$__dirname/dircolors"       ~/.config/dircolors
+
+##################
+# Install neovim #
+##################
+
+echo '${blue}${bold}==> Installing neovim${reset}'
+
+cd ~/.local
+wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+chmod +x nvim.appimage
+
+remove_file ~/bin/nvim
+ln -s ~/.local/nvim.appimage ~/bin/nvim
