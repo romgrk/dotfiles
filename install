@@ -72,8 +72,11 @@ ln -s "$__dirname/dircolors"       ~/.config/dircolors
 echo '${blue}${bold}==> Installing neovim${reset}'
 
 cd ~/.local
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-chmod +x nvim.appimage
+
+if ! is_normal_file ./nvim.appimage; then
+    wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    chmod +x nvim.appimage
+fi
 
 remove_file ~/bin/nvim
 ln -s ~/.local/nvim.appimage ~/bin/nvim
