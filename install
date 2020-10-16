@@ -9,7 +9,7 @@ __dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ########
 
 touch ~/.bashrc
-rm ~/.bash_aliases
+rm -f ~/.bash_aliases
 
 echo "\n. $__dirname/bash/init.sh" >> ~/.bashrc
 ln -s "$__dirname/bash/aliases.sh" ~/.bash_aliases
