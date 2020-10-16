@@ -79,4 +79,8 @@ if ! is_normal_file ~/.local/nvim.appimage; then
 
     remove_file ~/bin/nvim
     ln -s ~/.local/nvim.appimage ~/bin/nvim
+
+    cd ~/.config
+    git clone https://github.com/romgrk/nvim
+    nvim -c 'PlugInstall'
 fi
