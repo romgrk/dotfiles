@@ -88,7 +88,7 @@ ln -s "$__dirname/dircolors"       ~/.config/dircolors
 if [[ "$(which node)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
     echo_info "Install nodejs"
 
-    if [[ "$(uname -a)" =~ ".*Ubuntu.*" ]]; then
+    if [[ "$(uname -a)" =~ .*Ubuntu.* ]]; then
         # Using Ubuntu
         curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
         sudo apt install -y nodejs
