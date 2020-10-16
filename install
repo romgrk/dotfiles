@@ -8,6 +8,10 @@ blue='\x1b[94m'
 bold='\x1b[1m'
 reset='\x1b[0m'
 
+function echo_info {
+    echo -e "${blue}${bold}==>${reset} ${bold}$1 ${reset}"
+}
+
 function is_symlink () {
     if [ -L "$1" ]; then
         return 0
@@ -58,7 +62,7 @@ mkdir -p ~/.local
 
 if is_normal_file ~/.bashrc ; then
     mv ~/.bashrc ~/.bashrc.old
-    echo -e "${blue}${bold}==>${reset} ${bold}Moving existing .bashrc to .bashrc.old ${reset}"
+    echo_info "Moving existing .bashrc to .bashrc.old"
 fi
 if is_symlink ~/.bashrc ; then
     unlink ~/.bashrc
@@ -77,7 +81,7 @@ ln -s "$__dirname/dircolors"       ~/.config/dircolors
 ##################
 
 if ! is_normal_file ~/.local/nvim.appimage; then
-    echo -e "${blue}${bold}==>${reset} ${bold}Installing neovim${reset}"
+    echo_info "Installing neovim"
 
     cd ~/.local
 
@@ -90,7 +94,9 @@ if ! is_normal_file ~/.local/nvim.appimage; then
 fi
 
 if ! is_directory ~/.config/nvim; then
+    echo_info "Installing neovim configuration files"
+
     cd ~/.config
     git clone https://github.com/romgrk/nvim
-    nvim -c 'PlugInstall'
+    nvim --headless +PlugInstall +qa
 fi
