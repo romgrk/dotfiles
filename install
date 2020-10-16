@@ -5,11 +5,15 @@ __dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Colors
 blue='\x1b[94m'
+red='\x1b[91m'
 bold='\x1b[1m'
 reset='\x1b[0m'
 
 function echo_info {
     echo -e "${blue}${bold}==>${reset} ${bold}$1 ${reset}"
+}
+function echo_error {
+    echo -e "${red}${bold}==>${reset} ${bold}$1 ${reset}"
 }
 
 function is_symlink () {
@@ -75,6 +79,24 @@ ln -s "$__dirname/bash/init.sh"    ~/.bashrc
 ln -s "$__dirname/bash/aliases.sh" ~/.bash_aliases
 
 ln -s "$__dirname/dircolors"       ~/.config/dircolors
+
+
+##################
+# Install nodejs #
+##################
+
+if [[ "$(which node)" =~ ".*not found.*" ]]; then
+    echo_info "Install nodejs"
+
+    if [[ "$(uname -a)" =~ ".*Ubuntu.*" ]]; then
+        # Using Ubuntu
+        curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+        sudo apt install -y nodejs
+    else
+        echo_error "Can't install nodejs for: $(uname -a)"
+    fi
+fi
+
 
 ##################
 # Install neovim #
