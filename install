@@ -86,7 +86,7 @@ ln -s "$__dirname/dircolors"       ~/.config/dircolors
 # Install python #
 ##################
 
-if [[ "$(which python)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
+if [[ "$(which python)" =~ ".*not found.*" ]]; then
     echo_info "Installing python"
 
     if [[ "$(uname -a)" =~ .*Ubuntu.* ]]; then
@@ -104,7 +104,7 @@ fi
 # Install nodejs #
 ##################
 
-if [[ "$(which node)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
+if [[ "$(which node)" =~ ".*not found.*" ]]; then
     echo_info "Installing nodejs"
 
     if [[ "$(uname -a)" =~ .*Ubuntu.* ]]; then
