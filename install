@@ -1,9 +1,17 @@
 #!/bin/bash
 
+
 __dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+
+########
+# Bash #
+########
 
 touch ~/.bashrc
 rm ~/.bash_aliases
 
-echo "\n. $__dirname/init.sh" >> ~/.bashrc
-ln -s "$__dirname/init.sh" ~/.bashrc
+echo "\n. $__dirname/bash/init.sh" >> ~/.bashrc
+ln -s "$__dirname/bash/aliases.sh" ~/.bash_aliases
+
+ln -s "$__dirname/dircolors" ~/.config/dircolors
