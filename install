@@ -95,6 +95,9 @@ if [[ "$(which node)" =~ ".*not found.*" ]] || [[ "$?" -eq "1" ]]; then
     else
         echo_error "Can't install nodejs for: $(uname -a)"
     fi
+
+    npm install -g yarn
+    npm install -g neovim
 fi
 
 
