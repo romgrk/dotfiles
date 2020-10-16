@@ -51,7 +51,7 @@ mkdir -p ~/.local
 
 if is_normal_file ~/.bashrc ; then
     mv ~/.bashrc ~/.bashrc.old
-    echo -e "${bold}==> Moving existing .bashrc to .bashrc.old $reset"
+    echo -e "${blue}${bold}==>${reset} ${bold}Moving existing .bashrc to .bashrc.old ${reset}"
 fi
 if is_symlink ~/.bashrc ; then
     unlink ~/.bashrc
@@ -70,7 +70,7 @@ ln -s "$__dirname/dircolors"       ~/.config/dircolors
 ##################
 
 if ! is_normal_file ~/.local/nvim.appimage; then
-    echo -e "${blue}${bold}==> Installing neovim${reset}"
+    echo -e "${blue}${bold}==>${reset} ${bold}Installing neovim${reset}"
 
     cd ~/.local
 
