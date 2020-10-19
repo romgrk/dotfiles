@@ -5,12 +5,16 @@ __dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Colors
 blue='\x1b[94m'
+green='\x1b[92m'
 red='\x1b[91m'
 bold='\x1b[1m'
 reset='\x1b[0m'
 
 function echo_info {
     echo -e "${blue}${bold}==>${reset} ${bold}$1 ${reset}"
+}
+function echo_success {
+    echo -e "${green}${bold}==>${reset} ${bold}$1 ${reset}"
 }
 function echo_error {
     echo -e "${red}${bold}==>${reset} ${bold}$1 ${reset}"
@@ -125,7 +129,7 @@ fi
 # Install neovim #
 ##################
 
-if ! is_normal_file ~/.local/nvim.appimage; then
+if ! is_normal_file ~/.local/nvim.appimage && ! command -v nvim &> /dev/null ; then
     echo_info "Installing neovim"
 
     cd ~/.local
@@ -136,6 +140,9 @@ if ! is_normal_file ~/.local/nvim.appimage; then
     remove_file ~/bin/nvim
     ln -s ~/.local/nvim.appimage ~/bin/nvim
 
+    echo_success "Installed neovim"
+else
+    echo_success "Neovim already installed"
 fi
 
 if ! is_directory ~/.config/nvim; then
@@ -144,4 +151,16 @@ if ! is_directory ~/.config/nvim; then
     cd ~/.config
     git clone https://github.com/romgrk/nvim
     nvim --headless +PlugInstall +qa
+    echo "\n"
+
+    echo_success "Installed neovim configuration files"
+else
+    echo_info "Updating neovim configuration files"
+
+    cd ~/.config/nvim
+    git pull
+    nvim --headless +PlugInstall +PlugUpdate +qa
+    echo "\n"
+
+    echo_success "Updated neovim configuration files"
 fi
